@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './SignUpForm.css';
 
@@ -33,10 +34,10 @@ const SignUpForm = ({
           </div>
         </div>
         <div className="row right-align">
-          <input type="submit" className="waves-effect waves-light btn teal lighten-1" value='Sign Up'/>
+          <input type="submit" className="waves-effect waves-light btn teal accent-4" value='Sign Up'/>
         </div>
         <div className="row">
-          <p className="right-align"> Already have an account? <a href="#">Login</a></p>
+          <p className="right-align"> Already have an account? <Link to="/login">Log In</Link></p>
         </div>
       </form>
     </div>

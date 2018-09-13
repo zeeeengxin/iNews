@@ -1,13 +1,12 @@
 // only deal with logic
 import LoginForm from './LoginForm';
 
-import React from 'react';
+import Auth from '../Auth/Auth';
 
 class LoginPage extends React.Component {
 	constructor() {
 		super();
-
-		//set state
+		
 		this.state = {
 			errors: {},
 			user: {
@@ -34,7 +33,39 @@ class LoginPage extends React.Component {
 
 		console.log('email: ', email);
 		console.log('password: ', password);
-		//todo: backend
+		
+		const url = 'http://' + window.location.hostname + ':4000/auth/login';
+        const request = new Request(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+
+		fetch(request).then(res => {
+            if (res.status === 200) {
+                this.setState({ errors: {} });
+            	
+            	res.json().then(json => {
+            		console.log(json);
+            		Auth.authenticateUser(json.token, email);
+            		window.location.replace('/');
+            	});
+            } else {
+            	console.log('Login failed');
+            	res.json().then(json => {
+            		const errors = json.errors ? json.errors : {};
+            		errors.summary = json.message;
+            		this.setState({errors});
+            	});
+            }
+        });
+            
 	}
 
 	render() {
