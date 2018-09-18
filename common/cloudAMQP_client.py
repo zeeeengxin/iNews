@@ -13,7 +13,7 @@ class CloudAMQPClient:
 
     def send_message(self, message):
         self.channel.basic_publish(exchange='',routing_key=self.queue_name,body=json.dumps(message))
-        print("[x] Sent message to %s:%s" % (self.queue_name, message))
+        # print("[x] Sent message to %s:%s" % (self.queue_name, message))
 
     def get_message(self):
         method_frame, header_frame, body = self.channel.basic_get(self.queue_name)

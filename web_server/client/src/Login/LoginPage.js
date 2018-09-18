@@ -1,4 +1,6 @@
 // only deal with logic
+import React from 'react';
+
 import LoginForm from './LoginForm';
 
 import Auth from '../Auth/Auth';
